@@ -1,4 +1,4 @@
-export interface Wether {
+export interface Weather {
     location: Location
     current: Current
   }

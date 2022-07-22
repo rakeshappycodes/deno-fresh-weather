@@ -2,7 +2,7 @@
 import { h } from "preact";
 import { tw } from "@twind";
 import {Handlers, PageProps} from "$fresh/server.ts";
-import { Wether , Location , Current , Condition} from "../core/wether.ts";
+import { Weather , Location , Current , Condition} from "../core/weather.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 
 const appEnv = {
@@ -10,13 +10,13 @@ const appEnv = {
   API_URL: String(Deno.env.get('API_URL')),
 }
 
-export const handler : Handlers< Wether | null> = {
+export const handler : Handlers< Weather | null> = {
   async GET(_,ctx){
     const resp = await fetch(appEnv.API_URL);
   
     if(resp.status === 200){
-      const wether:Wether = await resp.json();
-      return ctx.render(wether);
+      const weather:Weather = await resp.json();
+      return ctx.render(weather);
     }
     return ctx.render(null);
   }
@@ -25,11 +25,11 @@ export const handler : Handlers< Wether | null> = {
 
 export const Head = () => (
   <head>
-      <title>Deno Wether App | Rakesh Roy</title>
+      <title>Deno Weather App | Rakesh Roy</title>
   </head>
 );
 
-export default function Home({data} : PageProps<Wether | null>) {
+export default function Home({data} : PageProps<Weather | null>) {
 
 
   return (
@@ -46,7 +46,7 @@ export default function Home({data} : PageProps<Wether | null>) {
           alt="the fresh logo: a sliced lemon dripping with juice"
         />
       </div>
-      <h1 class={tw`flex my-5 items-center justify-center text-center font-bold text(center 3xl white sm:gray-800 md:pink-700`}>Wether App</h1>
+      <h1 class={tw`flex my-5 items-center justify-center text-center font-bold text(center 3xl white sm:gray-800 md:pink-700`}>Weather App</h1>
       {!data ? <h2>ERROR</h2> : 
       <div class={tw`flex justify-center`}>
         <div class={tw`card  min-w-sm max-w-sm border border-gray-100 bg-gray-50   transition-shadow test  shadow-lg hover:shadow-shadow-xl w-full bg-green-600 text-purple-50 rounded-md`}>
